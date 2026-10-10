@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>专业八字排盘系统</title>
+<title>专业八字排盘与多维全景推演系统</title>
 <!-- 引入开源专业历法库 -->
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.js"></script>
 <style>
@@ -95,14 +95,11 @@ input, select, button { width: 100%; padding: 10px; margin-top: 4px; border-radi
 <h2>📜 八字原局干支结构</h2>
 
 <div class="list-box" id="baziStructureBox">--</div>
-
 <div class="relation-box" style="background:#fef2f2; border-left-color:#ff3b30; margin-top:16px;" id="baziSelfImpactBox">--</div>
-
 <div class="relation-box" style="background:#f0f9ff; border-left-color:#34c759; margin-top:16px;" id="baziFeatureBox">--</div>
   
 <h2 style="margin-top:24px;">第一栏：一生大运列表 (带十神、公历年份与岁数)</h2>
 <div id="startYunInfo" style="font-size:13px; color:#666; margin-top:4px;">--</div>
-
 <div class="list-box" style="border-left-color:#ff9500;" id="dayunListBox">--</div>
 <div class="relation-box" style="background:#fffbe6; border-left-color:#ff9500;" id="dayunDetailBox">--</div>
 
@@ -116,15 +113,15 @@ input, select, button { width: 100%; padding: 10px; margin-top: 4px; border-radi
 
 <div class="philosophy-tips">
 💡 <strong>命理视角小贴士：</strong><br/>
-命理学中“冲、刑、合”本质上是<strong>气场能量的剧烈转化与结构重组</strong>，并非绝对的吉凶。<br/>
+命理学中“冲, 刑, 合”本质上是<strong>气场能量的剧烈转化与结构重组</strong>，并非绝对的吉凶。<br/>
 - <strong>逢冲主“动”：</strong>往往打破僵局，带来跳槽、搬迁、脱单或事业新转机（“不冲不发”）；<br/>
 - <strong>逢刑主“塑”：</strong>代表细节磨合与能力重构，是自我升级与规则完善的契机。<br/>
-- <strong>逢合主“凝”：</strong>代表情感凝聚、贵人相助、签约合作与深度羁绊。<br/>
-顺应能量，主动变通，方能变压力为破局之力。
+- <strong>逢合主“凝”：</strong>代表情感凝聚、贵人相助、签约合作与深度羁绊。
 </div>
 
 <div class="relation-box" id="yearDetail">--</div>
 
+<!-- 第三栏：恢复流月干支细看 -->
 <h2 style="margin-top:24px;">第三栏：流月干支细看 (原局+大运+流年 综合推演)</h2>
 <div class="row">
 <div>
@@ -147,6 +144,7 @@ input, select, button { width: 100%; padding: 10px; margin-top: 4px; border-radi
 </div>
 <div class="relation-box" id="monthDetail">--</div>
 
+<!-- 第四栏：恢复流年/流月 综合专项诊断与动画舞台 -->
 <h2 style="margin-top:24px;">第四栏：流年/流月 综合专项诊断</h2>
 <div style="font-size: 13px; color: #666; margin-top: 4px;" id="currentSelectionIndicator">--</div>
 
@@ -171,7 +169,22 @@ input, select, button { width: 100%; padding: 10px; margin-top: 4px; border-radi
 <div id="marriageAnalysisBox" style="margin-top:4px;">--</div>
 </div>
 
-<h2 style="margin-top:24px;">第五栏：婚姻与配偶深度专项诊断</h2>
+<!-- 第五栏：未来五年事业财运 -->
+<h2 style="margin-top:24px;">第五栏：未来五年事业与财运深度专项诊断</h2>
+<div class="relation-box" style="background:#f0fdf4; border-left-color:#16a34a; margin-top:10px;">
+    <strong>💼 财富格局基因、官杀喜忌与未来五年财富轨迹：</strong>
+    <div id="futureCareerWealthBox" style="margin-top:8px; line-height: 1.8; font-size: 14px;">--</div>
+</div>
+
+<!-- 第六栏：未来五年健康与风险避坑 -->
+<h2 style="margin-top:24px;">第六栏：未来五年健康与风险避坑专项诊断</h2>
+<div class="relation-box" style="background:#fef2f2; border-left-color:#dc2626; margin-top:10px;">
+    <strong>🛡️ 五行偏枯预警、剧烈冲刑年份与风险调理：</strong>
+    <div id="futureHealthBox" style="margin-top:8px; line-height: 1.8; font-size: 14px;">--</div>
+</div>
+
+<!-- 第七栏：婚姻配偶深度诊断 -->
+<h2 style="margin-top:24px;">第七栏：婚姻与配偶深度专项诊断</h2>
 <div class="relation-box" style="background:#fff1f2; border-left-color:#e11d48; margin-top:10px;">
     <strong>💍 夫妻宫、配偶特征与正缘流年全解：</strong>
     <div id="spouseAnalysisBox" style="margin-top:8px; line-height: 1.8; font-size: 14px;">--</div>
@@ -232,23 +245,22 @@ const ImpactDictionary = {
     '卯酉冲': '卯酉相冲：木金相战，主感情风波、人际背离或肝胆肺部保养。',
     '辰戌冲': '辰戌冲：土库大开，主工作变动、购房搬家或财库起伏。',
     '巳亥冲': '巳亥相冲：水火相冲，主心脑血管保养、环境多变及远行。',
-    '子未害': '子未相害：水土相克，防小人暗算、感情误会。',
+    '子未害': '子未害：水土相克，防小人暗算、感情误会。',
     '丑午害': '丑午相害：湿土晦火，易生闷气，注意心火与脾胃不和。',
     '寅巳害': '寅巳害：木火相穿，注意情绪急躁及财物小耗。',
     '卯辰害': '卯辰相穿：木土相穿，防皮肤问题及亲友间沟通嫌隙。',
-    '申亥害': '申亥相害：金水相害，防呼吸系统及合作过程中的意料之外。',
+    '申亥害': '申亥害：金水相害，防呼吸系统及合作过程中的意料之外。',
     '酉戌害': '酉戌害：金土相穿，防面部皮肤及言语失误。',
-    // 🌟 地支六合与三合局深度命理原理
     '子丑合': '子丑相合：水土相合，主情感凝聚、内部合作加深，有利于稳固既有资源，但亦需防思路受局限。',
     '寅亥合': '寅亥相合：木旺生火，主贵人提携、思路开拓、签约合作或团队凝聚力强劲提升。',
     '卯戌合': '卯戌相合：木土相合化火，主情感升温、人际关系融洽，有利于合作共赢与事业破局。',
     '辰酉合': '辰酉相合：土金相生，主项目落地、资金聚拢、决策拍板或社交圈层向高阶拓展。',
     '巳申合': '巳申相合（合中带刑）：水火金交织，代表合作或感情表面和谐，但内部仍有利益分配或细节磨合。',
-    '午未合': '午未相合：火土相生，主热情投入、契约达成、家庭或团队氛围热烈向好。',
+    '午未合': '午未合：火土相生，主热情投入、契约达成、家庭或团队氛围热烈向好。',
     '巳酉丑': '巳酉丑三合金局：金气强力凝结，主重大项目敲定、资金汇聚、果断转型。',
     '亥卯未': '亥卯未三合木局：木气生发，主团队扩张、人脉拓展、新计划顺利落地。',
     '寅午戌': '寅午戌三合火局：火势猛烈，主名气声望提升、计划爆发、行动力极强。',
-    '申子辰': '申子辰三合水局：水势汪洋，主智慧流动、资金运转、远行或跨界交流合作。'
+    '申子辰': '申子辰水局：水势汪洋，主智慧流动、资金运转、远行或跨界交流合作。'
 };
 
 const FullEarthEngine = {
@@ -770,6 +782,9 @@ function runAll() {
         updateMonthSection();
         document.getElementById('resultCard').style.display = 'block';
 
+        // 补全五六七栏的调用
+        document.getElementById('futureCareerWealthBox').innerHTML = generateFutureCareerWealthAnalysis(eightChar);
+        document.getElementById('futureHealthBox').innerHTML = generateFutureHealthAnalysis(eightChar);
         document.getElementById('spouseAnalysisBox').innerHTML = generateDeepSpouseAnalysis(eightChar, globalGender);
     } catch(err) {
         console.error("排盘异常：", err);
@@ -853,7 +868,6 @@ function updateMonthSection() {
                 </div>`;
             }
 
-            // 🌟 核心检测：地支六合与三合强力引动高亮提示
             let dayZhi = (typeof globalFourZhis !== 'undefined' && globalFourZhis && globalFourZhis.length >= 3) ? globalFourZhis[2].zhi : '';
             if (dayZhi) {
                 const zhiLiuHeMap = { '子':'丑', '丑':'子', '寅':'亥', '亥':'寅', '卯':'戌', '戌':'卯', '辰':'酉', '酉':'辰', '巳':'申', '申':'巳', '午':'未', '未':'午' };
@@ -930,6 +944,7 @@ function updateMonthSection() {
         <div style="margin-top:6px;"><strong>地支冲合刑 (深度解析)：</strong><br/> ${renderRelationTagsWithDetail(yZhiRel)}</div>
         `;
 
+        // 🌟 修复关键：补全流月喜忌（isMonthXiShen）的推导，彻底解决第三/四栏崩溃不显示问题
         const targetMonthZhi = document.getElementById('targetMonthZhi').value;
         const monthGanZhiObj = WuHuDunEngine.getMonthGanZhi(yGan, targetMonthZhi);
         const solarDateRange = WuHuDunEngine.getDynamicSolarRange(targetYearNum, targetMonthZhi);
@@ -940,7 +955,13 @@ function updateMonthSection() {
         const mGan = monthGanZhiObj.gan;
         const mShiShen = ShiShenEngine.getShiShen(globalDayGan, mGan);
         const mGanRel = FullEarthEngine.analyzeGan(mGan, monthTargetGans);
-        const mZhiRel = FullEarthEngine.analyzeZhi(targetMonthZhi, monthTargetZhis, isYearXiShen);
+        
+        // 计算流月地支喜忌
+        const mZhiWX = { '子':'水','丑':'土','寅':'木','卯':'木','辰':'土','巳':'火','午':'火','未':'土','申':'金','酉':'金','戌':'土','亥':'水' }[targetMonthZhi];
+        const isMonthSameOrSheng = (mZhiWX === dayWX || mZhiWX === { '金':'土','木':'水','水':'金','火':'木','土':'火' }[dayWX]);
+        const isMonthXiShen = globalIsStrong ? !isMonthSameOrSheng : isMonthSameOrSheng;
+
+        const mZhiRel = FullEarthEngine.analyzeZhi(targetMonthZhi, monthTargetZhis, isMonthXiShen);
 
         mZhiRel.forEach(item => {
             if (item.type === 'hui' && item.targetWX) {
@@ -952,6 +973,7 @@ function updateMonthSection() {
             }
         });
 
+        // 渲染第三栏流月细看
         document.getElementById('monthDetail').innerHTML = `
         <strong>流月干支 (五虎遁)：</strong><span style="font-size:18px; font-weight:bold; color:#007aff;">${monthGanZhiObj.ganZhi}月</span><br/>
         <strong>对应公历日期：</strong><span class="date-range">${solarDateRange}</span><br/>
@@ -962,10 +984,30 @@ function updateMonthSection() {
 
         document.getElementById('currentSelectionIndicator').innerHTML = `当前正在推演诊断的区间：<strong>${targetYearNum}年 (${yGan}${yZhi}年) & ${monthGanZhiObj.ganZhi}月 (${solarDateRange})</strong>`;
 
+        // 渲染第四栏综合专项诊断与动态场景
         const specialRes = calculateSpecialAspects(globalDayGan, mGan, targetMonthZhi, mZhiRel);
         document.getElementById('marriageAnalysisBox').innerHTML = specialRes.marriageText;
         document.getElementById('wealthAnalysisBox').innerHTML = specialRes.wealthText;
         document.getElementById('healthAnalysisBox').innerHTML = specialRes.healthText;
+
+        const topZhiImpact = mZhiRel.length > 0 ? mZhiRel[0] : null;
+        if (topZhiImpact && topZhiImpact.type === 'chong') {
+            document.getElementById('animScene').innerText = "💥 ⚡ 🌊";
+            document.getElementById('animTitle').innerText = `【${monthGanZhiObj.ganZhi}月】剧烈气场冲动 (指数: ${topZhiImpact.index.toFixed(1)})`;
+            document.getElementById('animDesc').innerText = `在 ${solarDateRange} 期间，最突出的能量作用为：[${topZhiImpact.name}]。局势变动明显，宜稳中求进。`;
+        } else if (topZhiImpact && topZhiImpact.type === 'xing') {
+            document.getElementById('animScene').innerText = "⚖️ 🌀 🌪️";
+            document.getElementById('animTitle').innerText = `【${monthGanZhiObj.ganZhi}月】引发相刑/三刑作用 (指数: ${topZhiImpact.index.toFixed(1)})`;
+            document.getElementById('animDesc').innerText = `在 ${solarDateRange} 期间，最突出的能量作用为：[${topZhiImpact.name}]。注意情绪调适与事务细节。`;
+        } else if (topZhiImpact && topZhiImpact.type === 'he') {
+            document.getElementById('animScene').innerText = "💖 🤝 🏰";
+            document.getElementById('animTitle').innerText = `【${monthGanZhiObj.ganZhi}月】磁场相合升温 (指数: ${topZhiImpact.index.toFixed(1)})`;
+            document.getElementById('animDesc').innerText = `在 ${solarDateRange} 期间，最突出的能量作用为：[${topZhiImpact.name}]。利于沟通、合作与关系巩固。`;
+        } else {
+            document.getElementById('animScene').innerText = "🌱 🍵 📜";
+            document.getElementById('animTitle').innerText = `【${monthGanZhiObj.ganZhi}月】运势平稳`;
+            document.getElementById('animDesc').innerText = `在 ${solarDateRange} 期间，流月与四柱及大运未产生剧烈冲刑作用，气场顺畅。`;
+        }
     } catch(err) {
         console.error("更新流月详情出错：", err);
     }
@@ -1105,7 +1147,7 @@ function generateDeepSpouseAnalysis(eightChar, gender) {
     let starWxDesc = starWuXingTraits[spouseTargetWX] || "配偶星五行平和，外貌呈现自然的复合特征。";
 
     const meetingScenes = [
-        "多通过工作职场、业务往来、或经由同事、上司介绍相识。",
+        "多通过工作职场、业务往来、或经由同学、同事、上司介绍相识。",
         "多在社交聚会、朋友婚礼、公开活动或通过网络兴趣圈子结缘。",
         "多在求学、培训、出差旅行或文化活动场所中偶然相遇。",
         "具有一定的缘分巧合，可能在某次突发的变动、聚会或经长辈热心撮合而迅速拉近距离。"
@@ -1226,6 +1268,110 @@ function generateProfessionalDayunList(birthYear, birthMonth, startAge, dayunGan
     });
 
     return resultList;
+}
+
+/**
+ * 第五栏：未来五年事业与财运深度诊断引擎
+ */
+function generateFutureCareerWealthAnalysis(eightChar) {
+    const dayGan = eightChar.getDayGan();
+    const dayWX = ShiShenEngine.ganWuXing[dayGan];
+    const wuXingKe = { '木':'土', '土':'水', '水':'火', '火':'金', '金':'木' };
+    const wealthWX = wuXingKe[dayWX];
+
+    const allZhis = [eightChar.getYearZhi(), eightChar.getMonthZhi(), eightChar.getDayZhi(), eightChar.getTimeZhi()];
+    const kuList = ['辰', '戌', '丑', '未'];
+    const foundKus = allZhis.filter(z => kuList.includes(z));
+
+    let kuText = foundKus.length > 0 ? 
+        `原局自带财库【<strong>${foundKus.join('、')}</strong>】，代表先天具备储蓄变现与资产沉淀基因，逢流年冲开财库之年（如辰戌冲、丑未冲）易有大笔资金流动或资产重组。` : 
+        `原局无明显土库相重，财源流动性强，求财宜注重现金流周转与稳健理财。`;
+
+    const currentYear = new Date().getFullYear();
+    const branchList = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+    const ganList = ['庚','辛','壬','癸','甲','乙','丙','丁','戊','己'];
+
+    let futureYearsHtml = [];
+    for (let i = 0; i < 5; i++) {
+        let y = currentYear + i;
+        let yGan = ganList[y % 10];
+        let yZhi = branchList[(y - 2024 + 4 + 120) % 12];
+        let shishen = ShiShenEngine.getShiShen(dayGan, yGan);
+
+        let careerGuide = "";
+        if (['正官', '七杀'].includes(shishen)) {
+            careerGuide = globalIsStrong ? 
+                `👔 <strong>【官杀显化·事业高光期】</strong>：身强胜官杀！本年主职位晋升、接手核心重任、名气打响，极利于职场破局。` : 
+                `⚠️ <strong>【官杀透干·谨防压力过载】</strong>：身弱逢官杀，工作负荷较重，宜稳扎稳打，谨防口舌或合规风险。`;
+        } else if (['正财', '偏财', '食神', '伤官'].includes(shishen)) {
+            careerGuide = globalIsStrong ? 
+                `💰 <strong>【食伤财星·商业变现期】</strong>：身强胜财！极利于副业拓展、投资收益落袋、技能变现与项目爆发。` : 
+                `🛡️ <strong>【财星透干·求财宜稳健】</strong>：财源机会增多，但身弱不宜盲目扩张，宜合作共赢，控制资金风险。`;
+        } else {
+            careerGuide = `🤝 <strong>【比劫印星·资源沉淀期】</strong>：利于贵人帮扶、团队组建、知识考证与内部规则修补。`;
+        }
+
+        futureYearsHtml.push(`<li><strong>${y}年（${yGan}${yZhi}年 - 天干透${shishen}）</strong>：${careerGuide}</li>`);
+    }
+
+    return `
+        <p><strong>💎 1. 原局财富基因与财库分析：</strong><br>
+        日主【${dayGan}】以【${wealthWX}】为财星。<br>${kuText}</p>
+
+        <p><strong>⚖️ 2. 日主旺衰与求财模式建议：</strong><br>
+        当前命局诊断为【<strong>${globalIsStrong ? '身旺' : '身弱'}</strong>】。<br>
+        <em>指导建议：</em>${globalIsStrong ? '适合主动发力、拓展新业务、商业投资，用食伤与财星将能量转化为财富成果。' : '适合借助大平台、团队合作，靠人脉与稳健策略取胜，切忌高杠杆盲目投资。'}</p>
+
+        <p><strong>📈 3. 未来五年事业与财运逐年预测：</strong><br>
+        <ul style="margin-top:6px; padding-left:20px; line-height: 1.8;">
+            ${futureYearsHtml.join('')}
+        </ul></p>
+    `;
+}
+
+/**
+ * 第六栏：未来五年健康与风险避坑诊断引擎
+ */
+function generateFutureHealthAnalysis(eightChar) {
+    const dayGan = eightChar.getDayGan();
+    const dayWX = ShiShenEngine.ganWuXing[dayGan];
+
+    const currentYear = new Date().getFullYear();
+    const branchList = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+    const ganList = ['庚','辛','壬','癸','甲','乙','丙','丁','戊','己'];
+
+    const zhiLiuChong = { '子':'午', '午':'子', '丑':'未', '未':'丑', '寅':'申', '申':'寅', '卯':'酉', '酉':'卯', '辰':'戌', '戌':'辰', '巳':'亥', '亥':'巳' };
+    const allZhis = [eightChar.getYearZhi(), eightChar.getMonthZhi(), eightChar.getDayZhi(), eightChar.getTimeZhi()];
+
+    let riskYearsHtml = [];
+    for (let i = 0; i < 5; i++) {
+        let y = currentYear + i;
+        let yGan = ganList[y % 10];
+        let yZhi = branchList[(y - 2024 + 4 + 120) % 12];
+
+        let chongHits = allZhis.filter(z => zhiLiuChong[z] === yZhi);
+        let riskNotice = "";
+
+        if (chongHits.length > 0) {
+            riskNotice = `⚠️ <strong>【地支逢冲·防范环境剧动与疲劳】</strong>：流年【${yZhi}】冲动原局【${chongHits.join('、')}】，注意作息规律，防范筋骨伤痛或急躁情绪。`;
+        } else if (['丑','未','戌'].includes(yZhi) && allZhis.some(z => ['丑','未','戌'].includes(z))) {
+            riskNotice = `🌪️ <strong>【土气交战·保养脾胃皮肤】</strong>：土气较旺，日常宜清淡饮食，关注消化系统与作息调理。`;
+        } else {
+            riskNotice = `🌱 <strong>【气场平稳·注重日常保养】</strong>：无剧烈冲刑，保持良好生活习惯即可。`;
+        }
+
+        riskYearsHtml.push(`<li><strong>${y}年（${yGan}${yZhi}年）</strong>：${riskNotice}</li>`);
+    }
+
+    return `
+        <p><strong>🩺 1. 原局五行气场与健康倾向：</strong><br>
+        日主属【${dayWX}】，结合月令与地支藏干，日常需特别关注体能保养与情绪舒导。</p>
+
+        <p><strong>🛡️ 2. 未来五年健康与风险避坑预警年份：</strong><br>
+        <ul style="margin-top:6px; padding-left:20px; line-height: 1.8;">
+            ${riskYearsHtml.join('')}
+        </ul></p>
+    `;
 }
 </script>
 
